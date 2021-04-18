@@ -6,7 +6,7 @@ import Image from './components/image';
 import Select from './components/select';
 import Logo from './components/logo';
 
-const API = 'http://hp-api.herokuapp.com/api/characters'
+const API = 'https://hp-api.herokuapp.com/api/characters'
 
 let houses = {
     gryffindor: 'https://i.pinimg.com/originals/57/1c/05/571c05cafaaeb23da51886f4365ea7ad.jpg',
