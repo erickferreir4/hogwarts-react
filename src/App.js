@@ -21,6 +21,7 @@ const App = () => {
     let [name, setName] = useState('')
     let [img, setImg] = useState('')
     let [logo, setLog] = useState('')
+    let [isFetching, setFetch] = useState(true)
 
     useEffect( () => {
         fetch(API)
@@ -32,6 +33,9 @@ const App = () => {
                 setLog(houses[r[0].house.toLowerCase()])
             })
             //.finally( setFetch(false) )
+            .finally( () => {
+                setTimeout(() => setFetch(false), 5000 )
+            })
     }, [])
 
     function handleChange(event) {
@@ -46,10 +50,10 @@ const App = () => {
         <div>
             <Header />
             <div className="main">
-                <Logo image={logo}/>
+                <Logo image={logo} fetch={isFetching}/>
                 <div className="wrapper">
-                    <Name name={name}/>
-                    <Image image={img} />
+                    <Name name={name} fetch={isFetching}/>
+                    <Image image={img} fetch={isFetching}/>
                 </div>
                 <Select 
                     onChangeSelect={handleChange} 
