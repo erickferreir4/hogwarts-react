@@ -1,0 +1,28 @@
+@keyframes placeHolderShimmer {
+    0% {
+        background-position: -468px 0
+    }
+    to {
+        background-position: 468px 0
+    }
+}
+
+.is--lazy {
+    z-index: 0;
+    /*height: 300px;*/
+    /*width: 300px;*/
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: placeHolderShimmer;
+    animation-timing-function: linear;
+    background: #f6f7f8;
+    background: linear-gradient(90deg, #eee 8%, #ddd 18%, #eee 33%);
+    background-size: 800px 104px;
+    position: relative;
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    display: block;
+    margin: 5px;
+}

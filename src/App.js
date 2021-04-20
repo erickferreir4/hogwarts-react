@@ -5,6 +5,7 @@ import Name from './components/name';
 import Image from './components/image';
 import Select from './components/select';
 import Logo from './components/logo';
+import Lazyload from './components/lazyload';
 
 const API = 'https://hp-api.herokuapp.com/api/characters'
 
@@ -32,10 +33,10 @@ const App = () => {
                 setImg(r[0].image)
                 setLog(houses[r[0].house.toLowerCase()])
             })
-            //.finally( setFetch(false) )
-            .finally( () => {
-                setTimeout(() => setFetch(false), 5000 )
-            })
+            .finally( setFetch(false) )
+            //.finally( () => {
+            //    //setTimeout(() => setFetch(false), 5000 )
+            //})
     }, [])
 
     function handleChange(event) {
@@ -50,16 +51,27 @@ const App = () => {
         <div>
             <Header />
             <div className="main">
-                <Logo image={logo} fetch={isFetching}/>
+
+                <Lazyload width={'300px'} height={'300px'} fetch={isFetching}>
+                    <Logo image={logo} />
+                </Lazyload>
+
                 <div className="wrapper">
-                    <Name name={name} fetch={isFetching}/>
-                    <Image image={img} fetch={isFetching}/>
+                    <Lazyload width={'150px'} height={'30px'} fetch={isFetching}>
+                        <Name name={name} />
+                    </Lazyload>
+                    <Lazyload width={'160px'} height={'220px'} fetch={isFetching}>
+                        <Image image={img} />
+                    </Lazyload>
                 </div>
-                <Select 
-                    onChangeSelect={handleChange} 
-                    hogwarts={hogwarts.map( ({name}) => (
-                        <option key={name} value={name}>{name}</option>))}
-                />
+                
+                <Lazyload width={'150px'} height={'30px'} fetch={isFetching}>
+                    <Select 
+                        onChangeSelect={handleChange} 
+                        hogwarts={hogwarts.map( ({name}) => (
+                            <option key={name} value={name}>{name}</option>))}
+                    />
+                </Lazyload>
             </div>
         </div>
     )
