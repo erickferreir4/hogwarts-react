@@ -33,13 +33,15 @@ const App = () => {
                 setImg(r[0].image)
                 setLog(houses[r[0].house.toLowerCase()])
             })
-            .finally( setFetch(false) )
-            //.finally( () => {
-            //    //setTimeout(() => setFetch(false), 5000 )
-            //})
+            //.finally( setFetch(false) )
+            .finally( () => {
+                setTimeout(() => setFetch(false), 1000 )
+            })
     }, [])
 
     function handleChange(event) {
+        setFetch(true)
+        setTimeout(() => setFetch(false), 1000 )
         let {value} = event.target
         let dados = hogwarts.filter( item => item.name === value )
         setName(dados[0].name)
