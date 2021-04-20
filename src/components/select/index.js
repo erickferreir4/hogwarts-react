@@ -3,7 +3,7 @@ import './styles.css';
 
 const Select = (props) => {
     return (
-        <select onChange={props.onChangeSelect}>
+        <select onChange={props.onChangeSelect} value={props.value}>
             {props.hogwarts}
         </select>
     )

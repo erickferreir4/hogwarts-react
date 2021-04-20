@@ -17,23 +17,21 @@ let houses = {
 }
 
 const App = () => {
-
-    let [hogwarts, setHog] = useState([])
-    let [name, setName] = useState('')
-    let [img, setImg] = useState('')
-    let [logo, setLog] = useState('')
     let [isFetching, setFetch] = useState(true)
+    let [student, setStudent] = useState({name: '', img: '', logo: ''})
+    let [hogwarts, setHogwarts]= useState([])
 
     useEffect( () => {
         fetch(API)
             .then( r => r.json() )
             .then( r => {
-                setHog(r)
-                setName(r[0].name)
-                setImg(r[0].image)
-                setLog(houses[r[0].house.toLowerCase()])
+                setStudent({
+                    name: r[0].name,
+                    img: r[0].image,
+                    logo: houses[r[0].house.toLowerCase()],
+                })
+                setHogwarts(r)
             })
-            //.finally( setFetch(false) )
             .finally( () => {
                 setTimeout(() => setFetch(false), 1000 )
             })
@@ -42,11 +40,15 @@ const App = () => {
     function handleChange(event) {
         setFetch(true)
         setTimeout(() => setFetch(false), 1000 )
+
         let {value} = event.target
-        let dados = hogwarts.filter( item => item.name === value )
-        setName(dados[0].name)
-        setImg(dados[0].image)
-        setLog(houses[dados[0].house.toLowerCase()])
+        let dados = hogwarts.filter( item => item.name === value )[0]
+
+        setStudent({
+            name: dados.name,
+            img: dados.image,
+            logo: houses[dados.house.toLowerCase()],
+        })
     }
 
     return (
@@ -55,20 +57,20 @@ const App = () => {
             <div className="main">
 
                 <Lazyload width={'300px'} height={'300px'} fetch={isFetching}>
-                    <Logo image={logo} />
+                    <Logo image={student.logo} />
                 </Lazyload>
 
                 <div className="wrapper">
                     <Lazyload width={'150px'} height={'30px'} fetch={isFetching}>
-                        <Name name={name} />
+                        <Name name={student.name} />
                     </Lazyload>
                     <Lazyload width={'160px'} height={'220px'} fetch={isFetching}>
-                        <Image image={img} />
+                        <Image image={student.img} />
                     </Lazyload>
                 </div>
                 
                 <Lazyload width={'150px'} height={'30px'} fetch={isFetching}>
-                    <Select 
+                    <Select value={student.name}
                         onChangeSelect={handleChange} 
                         hogwarts={hogwarts.map( ({name}) => (
                             <option key={name} value={name}>{name}</option>))}
